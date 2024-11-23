@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Buscar Paciente</h1>
+    <form action="{{ url_for('cita_paciente') }}" method="POST">
+        <label for="identificacion">Identificación:</label>
+        <input type="text" id="identificacion" name="identificacion" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if paciente %}
+        <h2>Citas del Paciente: {{ paciente.nombre }}</h2>
+        {% if citas %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Fecha y Hora</th>
+                        <th>Médico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cita in citas %}
+                        <tr>
+                            <td>{{ cita.fecha_hora.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>Dr. {{ cita.medico.nombre }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>El paciente no tiene citas programadas.</p>
+        {% endif %}
+    {% else %}
+        <p>No se ha buscado un paciente aún.</p>
+    {% endif %}
+{% endblock %}

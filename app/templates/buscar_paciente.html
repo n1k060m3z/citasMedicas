@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Buscar Paciente</h1>
+    <form action="{{ url_for('buscar_paciente') }}" method="POST">
+        <label for="identificacion">Identificación:</label>
+        <input type="text" id="identificacion" name="identificacion" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if paciente %}
+        <h2>Paciente Encontrado</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>Celular</th>
+                    <th>Correo Electrónico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ paciente.identificacion }}</td>
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{{ paciente.celular }}</td>
+                    <td>{{ paciente.correo }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>No se ha buscado un paciente aún.</p>
+    {% endif %}
+{% endblock %}

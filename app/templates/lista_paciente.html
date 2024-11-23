@@ -1,0 +1,24 @@
+
+{% extends "index.html" %}
+    {% block content %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre Completo</th>
+                <th>Celular</th>
+                <th>Correo Electrónico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+                <td>{{ paciente.id }}</td>
+                <td>{{ paciente.nombre }}</td>
+                <td>{{ paciente.celular }}</td>
+                <td>{{ paciente.correo }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        {% endblock %}
