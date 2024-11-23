@@ -1,0 +1,86 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+nav {
+    background-color: #333;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+}
+
+nav ul li:hover > a {
+    background-color: #575757;
+}
+
+.submenu {
+    display: none; /* Ocultar submenú por defecto */
+    position: absolute;
+    top: 100%; /* Colocar submenú justo debajo del elemento padre */
+    left: 0;
+    background-color: #333;
+    padding: 0;
+    list-style-type: none;
+    min-width: 200px; /* Ancho mínimo del submenú */
+}
+
+.submenu li a {
+    padding: 10px 20px;
+    color: white;
+    white-space: nowrap; /* Evitar que el texto se corte */
+}
+
+.submenu li a:hover {
+    background-color: #575757;
+}
+
+/* Mostrar submenú al pasar el ratón sobre el elemento padre */
+nav ul li:hover .submenu {
+    display: block;
+}
+
+main {
+    width: 1000px;
+    height: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: scroll;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #007BFF;
+    color: white;
+}
