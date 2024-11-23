@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Sistema de Citas Médicas</title>
+</head>
+<body>
+    <header>
+        <h1>SISTEMA DE CITAS MEDICAS</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Paciente</a>
+                <ul class="submenu">
+                    <li><a href=" {{url_for('agregar_paciente')}}">Agregar paciente</a></li>
+                    <li><a href="{{url_for('cita_paciente')}}">Ver citas de un paciente</a></li>
+                    <li><a href="{{url_for('lista_paciente')}}">Ver lista de pacientes</a></li>
+                    <li><a href=" {{url_for('buscar_paciente')}}">Buscar un paciente</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Médico</a>
+                <ul class="submenu">
+                    <li><a href=" {{url_for('agregar_medico')}}">Agregar médico</a></li>
+                    <li><a href="{{ url_for('citas_medico') }}">Ver citas de un médico</a></li>
+                    <li><a href=" {{url_for('lista_medico')}}">Ver lista de médicos</a></li>
+                    <li><a href=" {{url_for('buscar_medico')}}">Buscar un médico</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Cita</a>
+                <ul class="submenu">
+                    <li><a href="{{ url_for('agendar_cita') }}">Agendar cita</a></li>
+                    <li><a href="{{ url_for('feedback') }}">Calificar cita</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Consulta/Reportes</a>
+                <ul class="submenu">
+                    <li><a href="{{ url_for('ver_calificacion') }}">Ver calificaciones de médicos</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        <!-- Aquí se insertará el contenido de las otras plantillas -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Sistema de Citas Médicas</p>
+    </footer>
+</body>
+</html>
