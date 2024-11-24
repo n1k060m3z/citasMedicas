@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('agendar_cita') }}">
+        <label for="identificacion">Identificación del Paciente:</label>
+        <input type="text" name="identificacion" required>
+
+        <label for="especialidad">Seleccione la Especialidad:</label>
+        <select name="especialidad" id="especialidad" required onchange="mostrarMedicos()">
+            <option value="">Seleccione una especialidad</option>
+            {% for especialidad in especialidades %}
+                <option value="{{ especialidad }}">{{ especialidad }}</option>
+            {% endfor %}
+        </select>
+        <label for="urgente">¿Es una cita urgente?</label>
+        <select name="urgente" id="urgente">
+            <option value="no">No</option>
+            <option value="sí">Sí</option>
+        </select>
+        <label for="medico">Seleccione el Médico:</label>
+        <select name="medico" id="medico" required disabled>
+            <option value="">Seleccione un médico</option>
+        </select>
+
+        <label for="fecha_hora">Fecha y Hora (YYYY-MM-DD HH:MM:SS):</label>
+        <input type="datetime-local" name="fecha_hora" step="1" required>
+
+        <button type="submit">Agendar Cita</button>
+    </form>
+
+    <!-- Script para manejar las especialidades y médicos -->
+    <script>
+        // Cargar datos de médicos por especialidad desde el contexto de Flask
+        const medicosPorEspecialidad = {{ medicos_por_especialidad|tojson }};
+        
+        function mostrarMedicos() {
+            const especialidad = document.getElementById("especialidad").value;
+            const medicoSelect = document.getElementById("medico");
+
+            medicoSelect.innerHTML = '<option value="">Seleccione un médico</option>';
+            medicoSelect.disabled = true;
+
+            if (especialidad && medicosPorEspecialidad[especialidad]) {
+                medicosPorEspecialidad[especialidad].forEach(medico => {
+                    const option = document.createElement("option");
+                    option.value = medico.id;
+                    option.textContent = medico.nombre;
+                    medicoSelect.appendChild(option);
+                });
+                medicoSelect.disabled = false;
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>Buscar Paciente</h1>
+
+<!-- Formulario para buscar al paciente -->
+<form action="{{ url_for('buscar_citas_paciente') }}" method="POST">
+    <label for="identificacion">Identificación:</label>
+    <input type="text" id="identificacion" name="identificacion" required>
+    <button type="submit">Buscar</button>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<!-- Mostrar el formulario de feedback solo si se encontró un paciente con citas -->
+{% if paciente and citas %}
+    <h2>Calificar cita</h2>
+    <form action="{{ url_for('feedback') }}" method="POST">
+        <label for="cita_id">Selecciona la cita:</label>
+        <select id="cita_id" name="cita_id" required>
+            <option value="" disabled selected>Seleccione una cita</option>
+            {% for cita in citas %}
+            <option value="{{ cita.medico.nombre }}|{{ cita.paciente.nombre }}|{{ cita.fecha_hora.strftime('%Y-%m-%d %H:%M:%S') }}">
+                Cita con {{ cita.medico.nombre }} el {{ cita.fecha_hora.strftime('%d/%m/%Y %H:%M:%S') }}
+            </option>
+            {% endfor %}
+        </select>
+        
+
+        <label for="calificacion">Calificación (0-5):</label>
+        <input type="number" name="calificacion" id="calificacion" min="0" max="5" required>
+
+        <label for="comentario">Comentario:</label>
+        <textarea name="comentario" id="comentario"rows="4" required></textarea>
+
+        <button type="submit">Calificar</button>
+    </form>
+{% endif %}
+{% endblock %}
